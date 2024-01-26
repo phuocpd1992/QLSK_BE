@@ -1,0 +1,21 @@
+1. download composer tại: https://getcomposer.org/
+2. chạy mã lệnh download mã nguồn laravel
+ - đi đến folder cần download, chuột phải mở PowerShell ghi lệnh sau:
+composer create-project --prefer-dist laravel/laravel laravel
+kết thúc sẽ có folder laravel tạo ra, mở xampp lên public là hiện.
+3.Bỏ pulic trên Url laravel mặc định
+- đổi server.php -> index.php
+- copy .htacess ra thư mực root
+
+4. Route
+5. Controller: php artisan make:controller ABCController
+6. Middleware: php artisan make:middleware CheckIn
+
+7. Migration: 
+Tạo cấu trúc bảng: php artisan make:migration create_admin_table --table=admin
+kích hoạt migration tạo bảng: php artisan migrate
+
+
+8. Tạo seeder và import data vào db
+php artisan make:seeder UserSeeder
+php artisan db:seed --class=UserSeeder
