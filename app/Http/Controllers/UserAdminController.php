@@ -19,7 +19,7 @@ class UserAdminController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['create']]);
+        $this->middleware('auth:api', ['except' => ['']]);
     }
 
   
