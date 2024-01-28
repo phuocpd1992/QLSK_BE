@@ -36,5 +36,17 @@ Route::group([
     Route::post('read', [DataController::class,'read']);
     Route::put('/update/{id}', [DataController::class, 'update']);
     Route::delete('/delete/{id}', [DataController::class, 'delete']);
+
+
+    // User Controller
+ 
+    Route::post('createUser', \App\Http\Controllers\UserAdminController::class . '@createUser');
+    Route::post('readUser', \App\Http\Controllers\UserAdminController::class . '@readUser');
+    Route::post('/readUserById/{id}', \App\Http\Controllers\UserAdminController::class . '@readUserById');
+    Route::put('/updateUserByID/{id}', \App\Http\Controllers\UserAdminController::class . '@updateUserByID');
+    Route::delete('/deleteUserById/{id}', \App\Http\Controllers\UserAdminController::class . '@deleteUserById');
+ 
+
+ 
  
 });
