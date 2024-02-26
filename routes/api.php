@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,15 +40,20 @@ Route::group([
     Route::delete('/delete/{id}', [DataController::class, 'delete']);
 
 
-    // User Controller
+    // User Admin Controller
+    Route::post('createUser',[UserAdminController::class,'createUser']);
+    Route::post('readUser',[UserAdminController::class,'readUser']);
+    Route::post('/readUserById/{id}',[UserAdminController::class,'readUserById']);
+    Route::post('/updateUserByID/{id}',[UserAdminController::class,'updateUserByID']);
+    Route::post('/deleteUserById/{id}',[UserAdminController::class,'deleteUserById']);
+    Route::post('readCompanyList',[UserAdminController::class,'readCompanyList']);
  
-    Route::post('createUser', \App\Http\Controllers\UserAdminController::class . '@createUser');
-    Route::post('readUser', \App\Http\Controllers\UserAdminController::class . '@readUser');
-    Route::post('/readUserById/{id}', \App\Http\Controllers\UserAdminController::class . '@readUserById');
-    Route::put('/updateUserByID/{id}', \App\Http\Controllers\UserAdminController::class . '@updateUserByID');
-    Route::delete('/deleteUserById/{id}', \App\Http\Controllers\UserAdminController::class . '@deleteUserById');
- 
+    // Post Controller
+    Route::post('createPost',[PostController::class,'createPost']);
+    Route::post('readPost',[PostController::class,'readPost']);
+    Route::post('/readPostById/{id}',[PostController::class,'readPostById']);
+    Route::post('/updatePostById/{id}',[PostController::class,'updatePostById']);
+    Route::post('/deletePostById/{id}',[PostController::class,'deletePostById']);
 
- 
- 
+
 });

@@ -12,23 +12,19 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\DB;
 
-
-
-class UserAdminController extends Controller
+class PostController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['']]);
     }
 
   
-    public function createUser(Request $request){
+    public function createPost(Request $request){
         try {
-            // get payload data from python
             $payload = $request->all();
-            DB::table('users')->insert($payload);
-            return response()->json(['code' => 200, 'message' => 'User created successfully']);
+            DB::table('posts')->insert($payload);
+            return response()->json(['code' => 200, 'message' => 'Post created successfully']);
 
         } catch (QueryException $e) {
             // Handle database-related exceptions
@@ -39,10 +35,11 @@ class UserAdminController extends Controller
         }
     }
 
-    public function readUser()
+
+    public function readPost()
     {
         try {
-            $data = DB::table('users')->get();
+            $data = DB::table('posts')->get();
             return response()->json(['code' => 200, 'data' => $data]);
         } catch (\Exception $e) {
             // Handle exceptions
@@ -50,32 +47,34 @@ class UserAdminController extends Controller
         }
     }
 
-    public function readUserById($id)
+
+    public function readPostById($id)
     {
         try {
-            $user = DB::table('users')->find($id);
+            $user = DB::table('posts')->find($id);
     
             if (!$user) {
-                return response()->json(['code' => 404, 'message' => 'User not found.']);
+                return response()->json(['code' => 404, 'message' => 'Post not found.']);
             }
 
             return response()->json(['code' => 200, 'data' => $user]);
         } catch (\Exception $e) {
-            \Log::error('Error in readUserById: ' . $e->getMessage());
+            \Log::error('Error in readPostById: ' . $e->getMessage());
             return response()->json(['code' => 500, 'message' => 'An error occurred: ' . $e->getMessage()]);
         }
     }
-    
 
-    public function updateUserByID(Request $request, $id){
+
+
+    public function updatePostById(Request $request, $id){
         try {
             $payload = $request->all();
-            $affectedRows = DB::table('users')
+            $affectedRows = DB::table('posts')
                 ->where('id', $id)
                 ->update($payload);
 
             if ($affectedRows > 0) {
-                return response()->json(['code' => 200, 'message' => 'User updated successfully']);
+                return response()->json(['code' => 200, 'message' => 'Posts updated successfully']);
             } else {
                 return response()->json(['code' => 404, 'message' => 'Record not found']);
             }
@@ -88,15 +87,16 @@ class UserAdminController extends Controller
         }
     }
 
-    public function deleteUserById(Request $request, $id)
+
+    public function deletePostById(Request $request, $id)
     {
         try {
-            $affectedRows = DB::table('users')
+            $affectedRows = DB::table('posts')
                 ->where('id', $id)
                 ->delete();
 
             if ($affectedRows > 0) {
-                return response()->json(['code' => 200, 'message' => 'User deleted successfully']);
+                return response()->json(['code' => 200, 'message' => 'Post deleted successfully']);
             } else {
                 return response()->json(['code' => 404, 'message' => 'Record not found']);
             }
@@ -109,16 +109,4 @@ class UserAdminController extends Controller
         }
     }
 
-
-    public function readCompanyList()
-    {
-        try {
-            $data = DB::table('company_list')->get();
-            return response()->json(['code' => 200, 'data' => $data]);
-        } catch (\Exception $e) {
-            // Handle exceptions
-            return response()->json(['code' => 500, 'message' => 'An error occurred: ' . $e->getMessage()]);
-        }
-    }
- 
 }
